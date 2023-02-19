@@ -638,7 +638,7 @@ def main(args: DreamboothConfig, use_txt2img: bool = True) -> TrainResult:
                 )
                 s_pipeline = s_pipeline.to(accelerator.device)
                 s_pipeline.enable_attention_slicing()
-                with accelerator.autocast(), torch.inference_mode(mode=accelerator.device != torch.device('mps')):
+                with accelerator.autocast(), torch.inference_mode(mode= accelerator.device != torch.device('mps')):
                     if save_model:
                         # We are saving weights, we need to ensure revision is saved
                         args.save()
@@ -710,7 +710,7 @@ def main(args: DreamboothConfig, use_txt2img: bool = True) -> TrainResult:
                             s_pipeline.set_progress_bar_config(disable=True)
                             sample_dir = os.path.join(save_dir, "samples")
                             os.makedirs(sample_dir, exist_ok=True)
-                            with accelerator.autocast(), torch.inference_mode(mode=accelerator.device != torch.device('mps')):
+                            with accelerator.autocast(), torch.inference_mode(mode= accelerator.device != torch.device('mps')):
                                 sd = SampleDataset(args)
                                 prompts = sd.get_prompts()
                                 concepts = args.concepts()
